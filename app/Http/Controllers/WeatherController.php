@@ -49,12 +49,12 @@ class WeatherController extends Controller
 //
         $test3[] = $weather->daily->data;
         // dd($test3);
-/*
-        foreach ((array)$test3 as $key => $value) {
+        /*
+                foreach ((array)$test3 as $key => $value) {
 
-         //   echo $key . " " . $value;
-            // echo $test4;
-        }*/
+                 //   echo $key . " " . $value;
+                    // echo $test4;
+                }*/
 
 
         $resultsDark = json_decode(json_encode($weather), true);
@@ -140,4 +140,10 @@ class WeatherController extends Controller
         return view('weather.loc');
     }
 
+
+    public function test()
+    {
+        $title = 'test page';
+        return view('weather.test', ['title' => $title]);
+    }
 }
