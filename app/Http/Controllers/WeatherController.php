@@ -33,6 +33,19 @@ class WeatherController extends Controller
         $currrentTime = \Carbon\Carbon::now()->toDayDateTimeString();
         $title = 'weather page';
         $ip = \Request::ip();
+
+
+        if ($ip == '127.0.0.1') {
+
+            $ip = '86.44.136.190';
+        } else {
+
+            $ip = \Request::ip();
+
+        }
+
+  
+
         $ip = '86.44.136.190';
 
         $position = \Location::get($ip);
