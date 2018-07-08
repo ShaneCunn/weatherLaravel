@@ -47,7 +47,8 @@ class WeatherController extends Controller
 
 
         $position = \Location::get($ip);
-        $location = $position->regionName;
+    //    dd($position);
+        $location = $position->cityName;
         $lat = $position->latitude;
         $long = $position->longitude;
 

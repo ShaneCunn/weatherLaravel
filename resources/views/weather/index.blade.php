@@ -18,11 +18,12 @@
                     <p class="blog-post-meta">{{$time}} by <a href="#">Shane</a></p>
 
                     <p>Test page for a simple weather page in laravel 5.6</p>
-                    <p>
-                        Location is: {{$loc}}
-                        latitude is: {{$lat}}
-                        longitude is: {{$long}}
-                    </p>
+                    <ul>
+                        <li>Location is: <strong>{{$loc}}</strong></li>
+                        <li>Latitude is: <strong>{{$lat}}</strong></li>
+                        <li>Longitude is: <strong>{{$long}}</strong> </li>
+                    </ul>
+
 
                     <P>IP address is: <strong>{{$ip}}</strong></P>
 
