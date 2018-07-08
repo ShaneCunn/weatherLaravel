@@ -19,6 +19,8 @@
 
                     <p>Location page</p>
 
+                    <P>Locations is: <strong>{{$ip}}</strong></P>
+
                 </div><!-- /.blog-post -->
 
 

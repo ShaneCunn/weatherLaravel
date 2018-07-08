@@ -34,8 +34,7 @@ class WeatherController extends Controller
         $title = 'weather page';
         $ip = \Request::ip();
 
-
-        if ($ip == '127.0.0.1') {
+        if ($ip == "127.0.0.1") {
 
             $ip = '86.44.136.190';
         } else {
@@ -44,14 +43,10 @@ class WeatherController extends Controller
 
         }
 
-  
 
-        $ip = '86.44.136.190';
+
 
         $position = \Location::get($ip);
-        // $test =
-
-        //dd($position);
         $location = $position->regionName;
         $lat = $position->latitude;
         $long = $position->longitude;
@@ -59,7 +54,7 @@ class WeatherController extends Controller
 
         $weather = \DarkSky::location($lat, $long)->get();
 
-//
+
         $test3[] = $weather->daily->data;
         // dd($test3);
         /*
@@ -143,7 +138,7 @@ class WeatherController extends Controller
 
         //  dd($weather->currently->summary);
         return view('weather.index', ['time' => $currrentTime, 'title' => $title, 'loc' => $location,
-            'lat' => $lat, 'long' => $long, 'weather' => $weather, 'direction' => $direction]);
+            'lat' => $lat, 'long' => $long, 'weather' => $weather, 'direction' => $direction, 'ip' => $ip]);
     }
 
 

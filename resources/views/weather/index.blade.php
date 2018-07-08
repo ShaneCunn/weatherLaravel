@@ -24,6 +24,7 @@
                         longitude is: {{$long}}
                     </p>
 
+                    <P>IP address is: <strong>{{$ip}}</strong></P>
 
                     <p> The current weather is: <strong>{{ $weather->currently->summary }}</strong></p>
                     <p> The current temperature is: <strong>{{ round(($weather->currently->temperature - 32) / 1.8, 0)}}
