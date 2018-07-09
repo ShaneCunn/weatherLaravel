@@ -86,16 +86,15 @@ class WeatherController extends Controller
           }*/
 
 
-
         $direction = $weather->currently->windBearing;
 
-       // dd($direction);
+        // dd($direction);
         $bearing = $direction;
         /**
          * @param $bearing
          * @return int|string
          */
-        function degreeToString($bearing)
+        function degreeToString($bearing, $direction)
         {
             $cardinalDirections = array(
                 'North' => array(337.5, 22.5),
@@ -121,11 +120,11 @@ class WeatherController extends Controller
             return $direction;
         }
 
-        $direction = degreeToString($bearing);
-      //  $wea = json_encode($weather, true);
+        $direction = degreeToString($bearing, $direction);
+         $wea = json_encode($weather, true);
         //  dd($wea);
 
-      //  $weatherJson = json_decode($wea, true);
+         $weatherJson = json_decode($wea, true);
 
         // dd($daily);
 
