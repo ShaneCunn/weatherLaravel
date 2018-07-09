@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Session;
 use Illuminate\Http\Request;
 use Auth;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -59,8 +60,11 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        $now = Carbon::now()->diffForHumans();
+        //dd($now);
+        $title = 'logout page';
         Auth::logout();
         $request->session()->flash('flash_notification.warning', 'You have logged out');
-        return view('test')->with('title', 'logout page');
+        return view('auth.logout', ['title'=> $title, 'now' => $now]);
     }
 }
