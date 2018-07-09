@@ -94,23 +94,23 @@ class WeatherController extends Controller
 
 
         function windRose($item) {
-            $winddir[]="N";
-            $winddir[]="NNE";
-            $winddir[]="NE";
-            $winddir[]="ENE";
-            $winddir[]="E";
-            $winddir[]="ESE";
-            $winddir[]="SE";
-            $winddir[]="SSE";
-            $winddir[]="S";
-            $winddir[]="SSW";
-            $winddir[]="SW";
-            $winddir[]="WSW";
-            $winddir[]="W";
-            $winddir[]="WNW";
-            $winddir[]="NW";
-            $winddir[]="NNW";
-            $winddir[]="N";
+            $winddir[]="North";
+            $winddir[]="North North East";
+            $winddir[]="North East";
+            $winddir[]="East North East";
+            $winddir[]="East";
+            $winddir[]="East South East";
+            $winddir[]="South East";
+            $winddir[]="South South East";
+            $winddir[]="South";
+            $winddir[]="South South West";
+            $winddir[]="South West";
+            $winddir[]="West South West";
+            $winddir[]="West";
+            $winddir[]="West North West";
+            $winddir[]="North West";
+            $winddir[]="North North West";
+            $winddir[]="North";
             return $winddir[round($item*16/360)];
         }
 
