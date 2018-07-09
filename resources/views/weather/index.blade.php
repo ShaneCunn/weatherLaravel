@@ -21,7 +21,7 @@
                     <ul>
                         <li>Location is: <strong>{{$loc}}</strong></li>
                         <li>Latitude is: <strong>{{$lat}}</strong></li>
-                        <li>Longitude is: <strong>{{$long}}</strong> </li>
+                        <li>Longitude is: <strong>{{$long}}</strong></li>
                     </ul>
 
 
@@ -33,8 +33,11 @@
                     <p> The current wind speed is: <strong>{{ round(($weather->currently->windSpeed * 3.6), 0) }}
                             Kms</strong></p>
                     <p> The current wind direction is: <strong>{{ $direction}}</strong></p>
-
-                    <p> The daily weather summary is: <strong>{{ $weather->daily->summary }}</strong></p>
+                    <?php $i = 0 ?>
+                    @foreach($dailyS as $value)
+                        <p> The daily weather summary for {{$days[$i]}} is: <strong>{{ $value}}</strong></p>
+                        <?php $i++; ?>
+                    @endforeach
                     {{-- @foreach($weather as $value)
                          <P>
                              {{ $weather->currently->summary }}
