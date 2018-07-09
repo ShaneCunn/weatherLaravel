@@ -86,45 +86,41 @@ class WeatherController extends Controller
           }*/
 
 
-        $direction = $weather->currently->windBearing;
+        $direction = null;
 
-        // dd($direction);
-        $bearing = $direction;
-        /**
-         * @param $bearing
-         * @return int|string
-         */
-        function degreeToString($bearing, $direction)
-        {
-            $cardinalDirections = array(
-                'North' => array(337.5, 22.5),
-                'North East' => array(22.5, 67.5),
-                'East' => array(67.5, 112.5),
-                'South East' => array(112.5, 157.5),
-                'South' => array(157.5, 202.5),
-                'South West' => array(202.5, 247.5),
-                'West' => array(247.5, 292.5),
-                'North West' => array(292.5, 337.5)
-            );
 
-            // for statement to convert degree to wind direction eg west
-            foreach ($cardinalDirections as $dir => $angles) { // convert degrees into wind direction  => is separator, key value pair
-                if ($bearing >= $angles[0] && $bearing < $angles[1]) {
-                    // if bearing  greater than/equal and less than ,
-                    // then set direction to =  dir
-                    $direction = $dir;
-                    dd($direction);
-                    break;
-                }
-            }
-            return $direction;
+        $bearing = $weather->currently->windBearing;
+
+
+
+        function windRose($item) {
+            $winddir[]="N";
+            $winddir[]="NNE";
+            $winddir[]="NE";
+            $winddir[]="ENE";
+            $winddir[]="E";
+            $winddir[]="ESE";
+            $winddir[]="SE";
+            $winddir[]="SSE";
+            $winddir[]="S";
+            $winddir[]="SSW";
+            $winddir[]="SW";
+            $winddir[]="WSW";
+            $winddir[]="W";
+            $winddir[]="WNW";
+            $winddir[]="NW";
+            $winddir[]="NNW";
+            $winddir[]="N";
+            return $winddir[round($item*16/360)];
         }
 
-        $direction = degreeToString($bearing, $direction);
-         $wea = json_encode($weather, true);
+
+        $direction = windRose($bearing);
+       // dd($direction);
+        $wea = json_encode($weather, true);
         //  dd($wea);
 
-         $weatherJson = json_decode($wea, true);
+        $weatherJson = json_decode($wea, true);
 
         // dd($daily);
 
