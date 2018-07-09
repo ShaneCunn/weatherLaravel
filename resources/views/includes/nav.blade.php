@@ -3,7 +3,7 @@
 
         @if (Route::has('login'))
             @auth
-                <a class="p-2 text-muted" href="{{ url('/home') }}">Home</a>
+                <a class="p-2 text-muted" href="{{ url('/') }}">Home</a>
             @endauth
         @endif
             <a class="p-2 text-muted" href="/weather">Weather</a>
