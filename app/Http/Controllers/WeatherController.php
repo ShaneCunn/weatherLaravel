@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Weather\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -44,10 +44,8 @@ class WeatherController extends Controller
         }
 
 
-
-
         $position = \Location::get($ip);
-    //    dd($position);
+        //    dd($position);
         $location = $position->cityName;
         $lat = $position->latitude;
         $long = $position->longitude;
@@ -86,7 +84,12 @@ class WeatherController extends Controller
               $wIcon = $cond['icon'];
               echo " high is: " . $wTempHigh . " low is: " . $wTempLow . " icon is " . $wIcon . "<br>";
           }*/
+
+
+
         $direction = $weather->currently->windBearing;
+
+       // dd($direction);
         $bearing = $direction;
         /**
          * @param $bearing
@@ -104,12 +107,14 @@ class WeatherController extends Controller
                 'West' => array(247.5, 292.5),
                 'North West' => array(292.5, 337.5)
             );
-// for statement to convert degree to wind direction eg west
+
+            // for statement to convert degree to wind direction eg west
             foreach ($cardinalDirections as $dir => $angles) { // convert degrees into wind direction  => is separator, key value pair
                 if ($bearing >= $angles[0] && $bearing < $angles[1]) {
                     // if bearing  greater than/equal and less than ,
                     // then set direction to =  dir
                     $direction = $dir;
+                    dd($direction);
                     break;
                 }
             }
@@ -117,10 +122,10 @@ class WeatherController extends Controller
         }
 
         $direction = degreeToString($bearing);
-        $wea = json_encode($weather, true);
+      //  $wea = json_encode($weather, true);
         //  dd($wea);
 
-        $weatherJson = json_decode($wea, true);
+      //  $weatherJson = json_decode($wea, true);
 
         // dd($daily);
 
