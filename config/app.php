@@ -154,11 +154,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Weather\Providers\AppServiceProvider::class,
+        Weather\Providers\AuthServiceProvider::class,
+        // Weather\Providers\BroadcastServiceProvider::class,
+        Weather\Providers\EventServiceProvider::class,
+        Weather\Providers\RouteServiceProvider::class,
 
 
         Stevebauman\Location\LocationServiceProvider::class,

@@ -15,13 +15,13 @@
 
                 <div class="blog-post">
                     <h2 class="blog-post-title">Simple weather page</h2>
-                    <p class="blog-post-meta">{{$time}} by <a href="#">Shane</a></p>
+                    <p class="blog-post-meta">{{$time}} by <a href="https://shanecunningham.me">Shane</a></p>
 
                     <p>Test page for a simple weather page in laravel 5.6</p>
                     <ul>
                         <li>Location is: <strong>{{$loc}}</strong></li>
                         <li>Latitude is: <strong>{{$lat}}</strong></li>
-                        <li>Longitude is: <strong>{{$long}}</strong> </li>
+                        <li>Longitude is: <strong>{{$long}}</strong></li>
                     </ul>
 
 
@@ -33,14 +33,15 @@
                     <p> The current wind speed is: <strong>{{ round(($weather->currently->windSpeed * 3.6), 0) }}
                             Kms</strong></p>
                     <p> The current wind direction is: <strong>{{ $direction}}</strong></p>
+                    <ul>
+                        @foreach($dailyS as $value)
+                            <li> The daily weather summary for {{$value['day']}} is: <strong>{{$value['summary']}}</strong></li>
 
-                    <p> The daily weather summary is: <strong>{{ $weather->daily->summary }}</strong></p>
-                    {{-- @foreach($weather as $value)
-                         <P>
-                             {{ $weather->currently->summary }}
+                        @endforeach
 
-                         </P>
-                     @endforeach--}}
+
+                    </ul>
+
                 </div><!-- /.blog-post -->
 
 

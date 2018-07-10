@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Weather\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -28,6 +28,8 @@ class WeatherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         $currrentTime = \Carbon\Carbon::now()->toDayDateTimeString();
@@ -44,10 +46,9 @@ class WeatherController extends Controller
         }
 
 
-
-
         $position = \Location::get($ip);
-    //    dd($position);
+
+        // dd($position);
         $location = $position->cityName;
         $lat = $position->latitude;
         $long = $position->longitude;
@@ -55,91 +56,61 @@ class WeatherController extends Controller
 
         $weather = \DarkSky::location($lat, $long)->get();
 
+        $weatherDaily = \DarkSky::location($lat, $long)->includes(['daily'])->get();
+        $test3[] = $weatherDaily->daily->data['0']->summary;
 
-        $test3[] = $weather->daily->data;
-        // dd($test3);
-        /*
-                foreach ((array)$test3 as $key => $value) {
+        $test7[] = $weatherDaily->daily->data;
 
-                 //   echo $key . " " . $value;
-                    // echo $test4;
-                }*/
+        $dailySummary = array();
+        for ($count = 0; $count <= 7; $count++) {
 
 
-        $resultsDark = json_decode(json_encode($weather), true);
-        // dd($resultsDark) ;
-        $test1 = $resultsDark['daily']['data'][0]['summary'];
-        $test2 = $resultsDark['daily']['data'];
+            $dayofWeek = date('l jS', strtotime(Carbon::createFromTimestamp($weatherDaily->daily->data[$count]->time)->subDay()));
+            $dailysummarytext = $weatherDaily->daily->data[$count]->summary;
+            $dailySummary[] = array('summary' => $dailysummarytext, 'day' => $dayofWeek);
 
-        /*  $dailyCond = array();
-          foreach ($test2 as $d) { // for loop through array to find  Key daily and value data,
-              // set that as a new array dailycond
-            //  print_r($dailyCond[] = $d);
+            // dd($dailySummary);
+            $dailyDay[] = $dayofWeek;
 
 
-          }
-          //  dd($dailyCond);
-          foreach ($dailyCond as $cond) {
-              $wTempHigh = round($cond['temperatureMax']);
-              $wTempLow = round($cond['temperatureMin']);
-              $wTime = $cond['time'];
-              $wIcon = $cond['icon'];
-              echo " high is: " . $wTempHigh . " low is: " . $wTempLow . " icon is " . $wIcon . "<br>";
-          }*/
-        $direction = $weather->currently->windBearing;
-        $bearing = $direction;
-        /**
-         * @param $bearing
-         * @return int|string
-         */
-        function degreeToString($bearing)
-        {
-            $cardinalDirections = array(
-                'North' => array(337.5, 22.5),
-                'North East' => array(22.5, 67.5),
-                'East' => array(67.5, 112.5),
-                'South East' => array(112.5, 157.5),
-                'South' => array(157.5, 202.5),
-                'South West' => array(202.5, 247.5),
-                'West' => array(247.5, 292.5),
-                'North West' => array(292.5, 337.5)
-            );
-// for statement to convert degree to wind direction eg west
-            foreach ($cardinalDirections as $dir => $angles) { // convert degrees into wind direction  => is separator, key value pair
-                if ($bearing >= $angles[0] && $bearing < $angles[1]) {
-                    // if bearing  greater than/equal and less than ,
-                    // then set direction to =  dir
-                    $direction = $dir;
-                    break;
-                }
-            }
-            return $direction;
         }
 
-        $direction = degreeToString($bearing);
-        $wea = json_encode($weather, true);
-        //  dd($wea);
 
-        $weatherJson = json_decode($wea, true);
+        $direction = null;
 
-        // dd($daily);
 
-        $dailySummary = $weatherJson['daily']['data'];
+        $bearing = $weather->currently->windBearing;
 
-        // dd($dailySummary);
-        /* foreach ($weatherJson['daily']['data'] as $value) {
-             $dailyCond[] = $value;
-             foreach ($dailyCond as $cond) {
-                 $dailysum = $cond['summary'];
-                 echo $dailysum . '<br>';
 
-             }
-         }*/
-        //dd($dailyCond);
+        function windRose($item)
+        {
+            $winddir[] = "North";
+            $winddir[] = "North North East";
+            $winddir[] = "North East";
+            $winddir[] = "East North East";
+            $winddir[] = "East";
+            $winddir[] = "East South East";
+            $winddir[] = "South East";
+            $winddir[] = "South South East";
+            $winddir[] = "South";
+            $winddir[] = "South South West";
+            $winddir[] = "South West";
+            $winddir[] = "West South West";
+            $winddir[] = "West";
+            $winddir[] = "West North West";
+            $winddir[] = "North West";
+            $winddir[] = "North North West";
+            $winddir[] = "North";
+            return $winddir[round($item * 16 / 360)];
+        }
 
-        //  dd($weather->currently->summary);
+
+        $direction = windRose($bearing);
+        // dd($direction);
+
         return view('weather.index', ['time' => $currrentTime, 'title' => $title, 'loc' => $location,
-            'lat' => $lat, 'long' => $long, 'weather' => $weather, 'direction' => $direction, 'ip' => $ip]);
+            'lat' => $lat, 'long' => $long, 'weather' => $weather, 'direction' => $direction,
+            'ip' => $ip, 'dailyS' => $dailySummary, 'days' => $dailyDay]);
     }
 
 
@@ -154,5 +125,93 @@ class WeatherController extends Controller
     {
         $title = 'test page';
         return view('weather.test', ['title' => $title]);
+    }
+
+    public function widget()
+    {
+        $title = 'Weather Widget';
+        $currentYear = \Carbon\Carbon::now();
+        $year = $currentYear->year;
+
+
+        $currrentTime = \Carbon\Carbon::now()->toDayDateTimeString();
+        $title = 'weather page';
+        $ip = \Request::ip();
+
+        if ($ip == "127.0.0.1") {
+
+            $ip = '86.44.136.190';
+        } else {
+
+            $ip = \Request::ip();
+
+        }
+
+
+        $position = \Location::get($ip);
+
+
+        $location = $position->cityName;
+        $lat = $position->latitude;
+        $long = $position->longitude;
+
+
+        $weather = \DarkSky::location($lat, $long)->get();
+
+        $weatherDaily = \DarkSky::location($lat, $long)->includes(['daily'])->get();
+        $test3[] = $weatherDaily->daily->data['0']->summary;
+
+        $test7[] = $weatherDaily->daily->data;
+
+        $dailySummary = array();
+        for ($count = 0; $count <= 7; $count++) {
+
+
+            $dayofWeek = date('D', strtotime(Carbon::createFromTimestamp($weatherDaily->daily->data[$count]->time)->subDay()));
+            $dailysummarytext = $weatherDaily->daily->data[$count]->summary;
+            $dailyIcon = $weatherDaily->daily->data[$count]->icon;
+            $dailySummary[] = array('summary' => $dailysummarytext, 'day' => $dayofWeek, 'icon' => $dailyIcon);
+
+
+            $dailyDay[] = $dayofWeek;
+
+
+        }
+
+
+        $direction = null;
+
+
+        $bearing = $weather->currently->windBearing;
+
+
+        function windRose($item)
+        {
+            $winddir[] = "North";
+            $winddir[] = "North North East";
+            $winddir[] = "North East";
+            $winddir[] = "East North East";
+            $winddir[] = "East";
+            $winddir[] = "East South East";
+            $winddir[] = "South East";
+            $winddir[] = "South South East";
+            $winddir[] = "South";
+            $winddir[] = "South South West";
+            $winddir[] = "South West";
+            $winddir[] = "West South West";
+            $winddir[] = "West";
+            $winddir[] = "West North West";
+            $winddir[] = "North West";
+            $winddir[] = "North North West";
+            $winddir[] = "North";
+            return $winddir[round($item * 16 / 360)];
+        }
+
+
+        $direction = windRose($bearing);
+
+
+        return view('layouts.weather', ['title' => $title, 'year' => $year,
+            'loc' => $location, 'weather' => $weather, 'dailyS' => $dailySummary]);
     }
 }
