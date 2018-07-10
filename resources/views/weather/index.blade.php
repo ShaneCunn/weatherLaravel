@@ -33,17 +33,15 @@
                     <p> The current wind speed is: <strong>{{ round(($weather->currently->windSpeed * 3.6), 0) }}
                             Kms</strong></p>
                     <p> The current wind direction is: <strong>{{ $direction}}</strong></p>
-                    <?php $i = 0 ?>
-                    @foreach($dailyS as $value)
-                        <p> The daily weather summary for {{$days[$i]}} is: <strong>{{ $value}}</strong></p>
-                        <?php $i++; ?>
-                    @endforeach
-                    {{-- @foreach($weather as $value)
-                         <P>
-                             {{ $weather->currently->summary }}
+                    <ul>
+                        @foreach($dailyS as $value)
+                            <li> The daily weather summary for {{$value['day']}} is: <strong>{{$value['summary']}}</strong></li>
 
-                         </P>
-                     @endforeach--}}
+                        @endforeach
+
+
+                    </ul>
+
                 </div><!-- /.blog-post -->
 
 

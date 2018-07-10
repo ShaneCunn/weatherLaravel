@@ -45,7 +45,8 @@ class WeatherController extends Controller
 
 
         $position = \Location::get($ip);
-        //    dd($position);
+
+        // dd($position);
         $location = $position->cityName;
         $lat = $position->latitude;
         $long = $position->longitude;
@@ -57,14 +58,21 @@ class WeatherController extends Controller
         $test3[] = $weatherDaily->daily->data['0']->summary;
 
         $test7[] = $weatherDaily->daily->data;
+
+        $dailySummary = array();
         for ($count = 0; $count <= 7; $count++) {
 
-            $dailySummary[] = $weatherDaily->daily->data[$count]->summary;
-            $dailyDay[] = Carbon::createFromTimestamp($weatherDaily->daily->data[$count]->time)->dayOfWeek;
+
+
+            $dayofWeek = date('l jS', strtotime(Carbon::createFromTimestamp($weatherDaily->daily->data[$count]->time)->subDay()));
+            $dailysummarytext = $weatherDaily->daily->data[$count]->summary;
+            $dailySummary[] = array('summary' => $dailysummarytext, 'day' => $dayofWeek);
+
+           // dd($dailySummary);
+            $dailyDay[] = $dayofWeek;
 
 
         }
-        //dd($test7);
 
 
         $direction = null;
