@@ -15,7 +15,7 @@
 
                 <div class="blog-post">
                     <h2 class="blog-post-title">Simple weather page</h2>
-                    <p class="blog-post-meta">{{$time}} by <a href="#">Shane</a></p>
+                    <p class="blog-post-meta">{{$time}} by <a href="https://shanecunningham.me">Shane</a></p>
 
                     <p>Test page for a simple weather page in laravel 5.6</p>
                     <ul>
