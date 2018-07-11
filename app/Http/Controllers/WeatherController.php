@@ -211,8 +211,8 @@ class WeatherController extends Controller
         $direction = windRose($bearing);
 
 
-        return view('layouts.weather', ['title' => $title, 'year' => $year,
-            'loc' => $location, 'weather' => $weather, 'dailyS' => $dailySummary]);
+        return view('layouts.weather2', ['title' => $title, 'year' => $year,
+            'loc' => $location, 'weather' => $weather, 'dailyS' => $dailySummary, 'loc' => $location,]);
     }
 
 
