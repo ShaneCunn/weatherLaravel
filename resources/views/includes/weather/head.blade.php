@@ -9,25 +9,7 @@
     <!-- Custom Theme files -->
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
-    <!-- //Custom Theme files -->
-    <!-- js -->
-    <script src="js/jquery-2.2.3.min.js"></script>
-    <script src="js/owl.carousel.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#owl-demo").owlCarousel({
-                autoPlay: 3000, //Set AutoPlay to 3 seconds
 
-                items : 3,
-                itemsDesktop : [768,3],
-                itemsDesktopSmall : [414,4]
-
-            });
-
-        });
-    </script>
-    <!-- sky icons -->
-    <script src="js/skycons.js"></script>
     <!-- //sky icons -->
     <!-- //js -->
     <!-- web font -->

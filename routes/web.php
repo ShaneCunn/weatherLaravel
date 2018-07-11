@@ -36,6 +36,8 @@ Route::get('/location', 'WeatherController@location');
 
 Route::get('/test', 'WeatherController@test');
 Route::get('/widget', 'WeatherController@widget');
+
+Route::get('/weather2', 'WeatherController@weatherPage');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('ip',function(){

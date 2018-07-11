@@ -214,4 +214,12 @@ class WeatherController extends Controller
         return view('layouts.weather', ['title' => $title, 'year' => $year,
             'loc' => $location, 'weather' => $weather, 'dailyS' => $dailySummary]);
     }
+
+
+
+    public function weatherPage()
+    {
+
+        return view('layouts.weather2');
+    }
 }
