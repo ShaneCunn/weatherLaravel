@@ -11,8 +11,8 @@ return [
     |
     */
 
-    'driver' => Stevebauman\Location\Drivers\IpInfo::class,
-
+   // 'driver' => Stevebauman\Location\Drivers\IpInfo::class,
+    'driver' => Stevebauman\Location\Drivers\MaxMind::class,
     /*
     |--------------------------------------------------------------------------
     | Driver Fallbacks

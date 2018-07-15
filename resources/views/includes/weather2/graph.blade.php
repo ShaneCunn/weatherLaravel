@@ -79,7 +79,7 @@
                         Latitude
                     </div>
                     <div class="wi-value">
-                        53.271938
+                         {{$lat}}
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                         Longitude
                     </div>
                     <div class="wi-value">
-                        -9.048890
+                       {{ $long }}
                     </div>
                 </div>
             </div>
