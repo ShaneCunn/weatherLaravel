@@ -13,6 +13,8 @@ use Naughtonium\LaravelDarkSky\DarkSky;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
+use Khill\Lavacharts\Lavacharts;
+
 class WeatherController extends Controller
 {
     /**
@@ -368,6 +370,36 @@ class WeatherController extends Controller
 
 //dd($nuig);
         return view('includes.weatherStation.weather');
+
+
+    }
+
+    public function guage()
+    {
+
+$lava = new Lavacharts;
+        $data = Lava::DataTable();
+        $data->addDateColumn('Day of Month')
+            ->addNumberColumn('Projected')
+            ->addNumberColumn('Official');
+
+        // Random Data For Example
+        for ($a = 1; $a < 30; $a++)
+        {
+            $rowData = [
+                "2014-8-$a", rand(800,1000), rand(800,1000)
+            ];
+
+            $data->addRow($rowData);
+        }
+
+        $lava->
+        \Lava::LineChart('Stocks', $data, [
+            'title' => 'Stock Market Trends'
+        ]);
+
+        $title = 'gauge page';
+        return view('weather.guage', ['title' => $title, compact($varname)]);
 
 
     }

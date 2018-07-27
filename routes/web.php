@@ -40,6 +40,7 @@ Route::get('/widget', 'WeatherController@widget');
 Route::get('/weather2', 'WeatherController@weatherPage');
 
 Route::get('/nuig', 'WeatherController@nuig');
+Route::get('/guage', 'WeatherController@guage');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('ip',function(){

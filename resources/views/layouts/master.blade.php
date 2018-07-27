@@ -5,7 +5,7 @@
  
 <head>
 
-       @include('includes.head')
+    @include('includes.head')
 
      
 </head>
