@@ -319,26 +319,56 @@ class WeatherController extends Controller
         //  echo $res->getBody();
         $csv = str_getcsv($res->getBody(), ",");
         //  $test = json_decode($res->getBody());
+        $nuig = (object)array('windDeg' => $csv[1], 'currentTemp' => $csv[2], 'currentAirPressure' => $csv[3],
+            'windSpeed' => $csv[4], 'currentWindGust' => $csv[5], 'CurrentHumidty' => $csv[6], 'totalSolar' => $csv[7],
+            'diffusedSolar' => $csv[8], 'avgYesterdayTemp' => $csv[9], 'maxTempYes' => $csv[10], 'minTempYes' => $csv[11],
+            'avgYestwindSpeed' => $csv[12], 'maxGustYes' => $csv[13], 'avgYesDirection' => $csv[14], 'maxYesGust' => $csv[15],
+            'avgYesAirPressure' => $csv[16], 'maxYesAirPressure' => $csv[17], 'minYesAirPressure' => $csv[18], 'avgYeshumidty' => $csv[19],
+            'maxYesHumidy' => $csv[20], 'minYesHumidty' => $csv[21], 'avyYesSolar' => $csv[22], 'maxYesSolar' => $csv[23],
+            'avyYesSolarDiffused' => $csv[24], 'maxYesSolarDiffuse' => $csv[25], 'updatedHour' => $csv[26], 'rainfall' => $csv[27],
+            'rainfallYes' => $csv[28], 'sunrrise' => $csv[29], 'sunset' => $csv[30], 'yesSunrise' => $csv[31], 'yesSunset' => $csv[32],
+        );
 
 
-        echo('wind degree: ' . $csv[1]);
-        echo('<br>current temp: : ' . $csv[2]);
-        echo('<br>current air pressure: : ' . $csv[3]);
-        echo('<br>current wind speed? : ' . $csv[4]);
-        echo('<br>current humidty : ' . $csv[6]);
-        echo('<br>current temp: : ' . $csv[2]);
-        echo('<br>today sunrise: : ' . $csv[29]);
-        echo('<br>today sunset: : ' . $csv[30]);
+        /*     $updatedDate_minute=$data_array[0];
+            $wind_direction=$data_array[1];
+            $temperature=$data_array[2];
+            $barometer=$data_array[3];
+            $wind_speed=$data_array[4];
+            $gust=$data_array[5];
+            $humidity=$data_array[6];
+            $totalSolar=$data_array[7];
+            $diffuseSolar=$data_array[8];
+            $avg_yesterdayTemperature=$data_array[9];  //Yesterday's avg for temperature
+            $max_yesterdayTemperature=$data_array[10]; //Yesterday's max for temperature
+            $min_yesterdayTemperature=$data_array[11]; //Yesterday's min for temperature
+            $avg_yesterdayWindSpeed=$data_array[12]; //Yesterday's avg for windspeed
+            $max_yesterdayWindSpeed=$data_array[13]; //Yesterday's max for windspeed
+            $avg_yesterdayWindDirection=$data_array[14]; //Yesterday's avg for winddirection
+            $max_yesterdayGust=$data_array[15];  //Yesterday's max for gust
+            $avg_yesterdayBaromter=$data_array[16];
+            $max_yesterdayBaromter=$data_array[17];
+            $min_yesterdayBaromter=$data_array[18];
+            $avg_yesterdayHumidity=$data_array[19];
+            $max_yesterdayHumidity=$data_array[20];
+            $min_yesterdayHumidity=$data_array[21];
+            $avg_yesterdayTotalSolar=$data_array[22];
+            $max_yesterdayTotalSolar=$data_array[23];
+            $avg_yesterdayDiffuseSolar=$data_array[24];
+            $max_yesterdayDiffuseSolar=$data_array[25];
+            $updatedDate_hour=$data_array[26];
+            $rainfall=$data_array[27];
+            $sum_yesterdayRain=$data_array[28];
+            $todaySunrise=$data_array[29];
+            $todaySunset=$data_array[30];
+            $yesterdaySunrise=$data_array[31];
+            $yesterdaySunset=$data_array[32];*/
 
-        dd($csv);
-// '{"id": 1420053, "name": "guzzle", ...}'
+        echo 'windspeed = ' . $nuig->windSpeed;
 
-// Send an asynchronous request.
-        /*  $request = new \GuzzleHttp\Psr7\Request('GET', 'http://httpbin.org');
-          $promise = $client->sendAsync($request)->then(function ($response) {
-              echo 'I completed! ' . $response->getBody();
-          });
-          $promise->wait();*/
+//dd($nuig);
+        return view('includes.weatherStation.weather');
+
 
     }
 }
