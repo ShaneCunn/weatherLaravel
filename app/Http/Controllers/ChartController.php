@@ -50,62 +50,58 @@ class ChartController extends Controller
         //  $test = json_decode($res->getBody());
 
 
-        /*        echo('wind degree: ' . $csv[1]);
-                echo('<br>current temp: : ' . $csv[2]);
-                echo('<br>current air pressure: : ' . $csv[3]);
-                echo('<br>current wind speed? : ' . $csv[4]);
-                echo('<br>current humidty : ' . $csv[6]);
-                echo('<br>current temp: : ' . $csv[2]);
-                echo('<br>today sunrise: : ' . $csv[29]);
-                echo('<br>today sunset: : ' . $csv[30]);*/
+        echo('wind degree: ' . $csv[1]);
+        echo('<br>current temp: : ' . $csv[2]);
+        echo('<br>current air pressure: : ' . $csv[3]);
+        echo('<br>current wind speed? : ' . $csv[4]);
+        echo('<br>current humidty : ' . $csv[6]);
+        echo('<br>current temp: : ' . $csv[2]);
+        echo('<br>today sunrise: : ' . $csv[29]);
+        echo('<br>today sunset: : ' . $csv[30]);
 
         //    dd($csv);
 // '{"id": 1420053, "name": "guzzle", ...}'
 
-// Send an asynchronous request.
-        /*  $request = new \GuzzleHttp\Psr7\Request('GET', 'http://httpbin.org');
-          $promise = $client->sendAsync($request)->then(function ($response) {
-              echo 'I completed! ' . $response->getBody();
-          });
-          $promise->wait();*/
+
+        $temps = \Lava::DataTable();
 
 
-        $lava2 = new Lavacharts; // See note below for Laravel
-
-        $lava = new Lavacharts; // See note below for Laravel
-
-        $temps = $lava->DataTable();
-
-        $airPressure = $lava->DataTable();
-
+        $airSpeed = \Lava::DataTable();
 
         $temps->addStringColumn('Type')
             ->addNumberColumn('Value')
-            ->addRow(['Temperature', $csv[2]])
-            ->addRow(['Air Pressure', rand(0, 100)]);
-        //   ->addRow(['Graphics', rand(0, 100)]);
+            ->addRow(['Temperature', $csv[2]]);
 
-        $lava->GaugeChart('Temps', $temps, [
+
+        $gaugechart = \Lava::GaugeChart('Temps', $temps, [
             'width' => 400,
-            'greenFrom' => 0,
-            'greenTo' => 69,
-            'yellowFrom' => 70,
-            'yellowTo' => 89,
-            'redFrom' => 90,
-            'redTo' => 100,
+            'greenFrom' => 5,
+            'greenTo' => 25,
+            'yellowFrom' => -50,
+            'yellowTo' => 4,
+            'redFrom' => 26,
+            'redTo' => 60,
+            'max' => 60,
+            'min' => -50,
+            'minorTicks' => 2,
+            'majorTicks' => [
+                '-50',
+                '60'
+            ]
         ]);
 
-
+        $airPressure = \Lava::DataTable();
         $airPressure->addStringColumn('Type')
             ->addNumberColumn('Value')
-            //  ->addRow(['Temperature', $csv[2]])
             ->addRow(['Air Pressure', $csv[3]]);
-        //   ->addRow(['Graphics', rand(0, 100)]);
 
-        $lava2->GaugeChart('Air', $airPressure, [
+
+        $airGuage = \Lava::GaugeChart('Air', $airPressure, [
             'width' => 400,
             'max' => 1050,
             'min' => 950,
+
+
             'minorTicks' => 20,
             'majorTicks' => [
                 '950',
@@ -113,10 +109,36 @@ class ChartController extends Controller
             ]
         ]);
 
+
+        $airSpeed = \Lava::DataTable();
+
+
+        $airSpeed->addStringColumn('Type')
+            ->addNumberColumn('Value')
+            ->addRow(['Wind Speed', round(($csv[4] * 3.6), 2)]);
+
+
+        $airSpeed = \Lava::GaugeChart('speed', $airSpeed, [
+            'width' => 400,
+            'max' => 100,
+            'min' => 0,
+            'greenFrom' => 25,
+            'greenTo' => 51,
+            'yellowFrom' => 52,
+            'yellowTo' => 61,
+            'redFrom' => 62,
+            'redTo' => 200,
+            'minorTicks' => 5,
+            'majorTicks' => [
+                '0',
+                '100'
+            ]
+        ]);
+
         $title = 'Temp gauge';
 
 
-        return view('guage.temp', ['title' => $title], compact('lava', 'lava2'));
+        return view('guage.temp', ['title' => $title], compact('gaugechart', 'airGuage', 'airSpeed'));
 
 
     }

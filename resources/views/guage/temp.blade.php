@@ -20,13 +20,19 @@
                     <P> <div id="pop-div"></div>
 
                     </p>
-                    <?= $lava->render('GaugeChart', 'Temps', 'pop-div') ?>
+                    <?= Lava::render('GaugeChart', 'Temps', 'pop-div') ?>
+
 
 
                     <P> <div id="temp-div"></div>
 
                     </p>
-                    <?= $lava2->render('GaugeChart', 'Air', 'temp-div') ?>
+                    <?= Lava::render('GaugeChart', 'Air', 'temp-div') ?>
+
+                    <P> <div id="speed-div"></div>
+
+                    </p>
+                    <?= Lava::render('GaugeChart', 'speed', 'speed-div') ?>
 
                 </div><!-- /.blog-post -->
 
