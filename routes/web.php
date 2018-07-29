@@ -49,3 +49,7 @@ Route::get('ip',function(){
     $data = \Location::get($ip);
     dd($data);
 });
+
+Route::get('gauge', 'ChartController@getGauge');
+
+Route::get('temp', 'ChartController@getTemp');

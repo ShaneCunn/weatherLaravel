@@ -20,7 +20,13 @@
                     <P> <div id="pop-div"></div>
 
                     </p>
-                    <?= $lava->render('GeoChart', 'Popularity', 'pop-div') ?>
+                    <?= $lava->render('GaugeChart', 'Temps', 'pop-div') ?>
+
+
+                    <P> <div id="temp-div"></div>
+
+                    </p>
+                    <?= $lava2->render('GaugeChart', 'Air', 'temp-div') ?>
 
                 </div><!-- /.blog-post -->
 

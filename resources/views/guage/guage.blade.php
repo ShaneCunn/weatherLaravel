@@ -14,10 +14,13 @@
 
 
                 <div class="blog-post">
-                    <h2 class="blog-post-title">test weather page</h2>
+                    <h2 class="blog-post-title">Gauge weather page</h2>
 
 
-                    <p>test page</p>
+                    <P> <div id="pop-div"></div>
+
+                    </p>
+                    <?= $lava->render('GeoChart', 'Popularity', 'pop-div') ?>
 
                 </div><!-- /.blog-post -->
 

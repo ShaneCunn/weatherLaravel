@@ -163,6 +163,10 @@ return [
 
         Stevebauman\Location\LocationServiceProvider::class,
         Naughtonium\LaravelDarkSky\LaravelDarkSkyServiceProvider::class,
+
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+
+
     ],
 
     /*
@@ -214,6 +218,9 @@ return [
 
         'Location' => Stevebauman\Location\Facades\Location::class,
         'DarkSky' => \Naughtonium\LaravelDarkSky\Facades\DarkSky::class,
+
+        'Lava' => 'Khill\Lavacharts\Laravel\LavachartsFacade',
+
 
     ],
 

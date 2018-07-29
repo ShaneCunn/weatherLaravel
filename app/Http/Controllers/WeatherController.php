@@ -308,7 +308,7 @@ class WeatherController extends Controller
 
     }
 
-    function nuig()
+   public function nuig()
     {
         $client = new \GuzzleHttp\Client();
         $res = $client->request('GET', 'http://weather.nuigalway.ie/getLiveData.php');
@@ -341,4 +341,13 @@ class WeatherController extends Controller
           $promise->wait();*/
 
     }
+
+    public function getGraph(){
+
+
+
+    }
+
+
+
 }
