@@ -215,18 +215,24 @@ class ChartController extends Controller
         //  $test = json_decode($res->getBody());
 
 
-        /*        echo('wind degree: ' . $csv[1]);
+              echo('wind degree: ' . $csv[1]);
                 echo('<br>current temp: : ' . $csv[2]);
                 echo('<br>current air pressure: : ' . $csv[3]);
                 echo('<br>current wind speed? : ' . $csv[4]);
-                echo('<br>current humidty : ' . $csv[6]);
+                echo('<br>current humidity : ' . $csv[6]);
                 echo('<br>current temp: : ' . $csv[2]);
                 echo('<br>today sunrise: : ' . $csv[29]);
-                echo('<br>today sunset: : ' . $csv[30]);*/
+                echo('<br>today sunset: : ' . $csv[30]);
 
 
         $degree = $csv[1];
+        $temperature = $csv[2];
+        $windSpeed = ($csv[4] * 3.6);
+        $windGust = ($csv[4] * 3.6);
+        $humidity = round($csv[6], 1);
+        $airPressure = $csv[3];
         $title = 'Compass gauge';
-        return view('guage.compass', ['title' => $title, 'degree' => $degree]);
+        return view('guage.compass', ['title' => $title, 'degree' => $degree, 'temperature' => $temperature,
+            'windSpeed' => $windSpeed, 'windGust' => $windGust, 'humidity' => $humidity, 'airPressure' => $airPressure]);
     }
 }

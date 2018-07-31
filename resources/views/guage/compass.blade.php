@@ -17,12 +17,22 @@
                     <h2 class="blog-post-title">Gauge weather page</h2>
 
 
-                    <P>
-                        <canvas id="windDirection"></canvas>
+                    <canvas id="windDirection"></canvas>
 
-                        <canvas id="gauge"></canvas>
 
-                    </p>
+                    <div class="row">
+                        <div class="col">
+                            <canvas id="temperature"></canvas>
+                            <canvas id="windSpeed"></canvas>
+                        </div>
+                        <div class="col">
+                            <canvas id="windGust"></canvas>
+                            <canvas id="humidity"></canvas>
+                        </div>
+                        <div class="col">
+                            <canvas id="airPressure"></canvas>
+                        </div>
+                    </div>
 
 
                 </div><!-- /.blog-post -->
@@ -32,8 +42,8 @@
 
 
                     var gauge = new RadialGauge({
-                        height: 206,
-                        renderTo: 'gauge',
+                        height: 180,
+                        renderTo: 'windDirection',
                         minValue: 0,
                         maxValue: 360,
                         majorTicks: [
@@ -86,9 +96,9 @@
 
 
 
-                    var gauge = new LinearGauge({
-                        renderTo: 'canvas-id',
-                        width: 400,
+
+                    var gauge2 = new LinearGauge({
+                        renderTo: 'temperature',
                         height: 150,
                         units: "°C",
                         title: "Temperature",
@@ -143,7 +153,141 @@
                         colorBar: "#f5f5f5",
                         barStroke: 0,
                         barWidth: 8,
-                        barBeginCircle: false
+                        barBeginCircle: false,
+                        value: "{{ $temperature }}"
+                    }).draw();
+
+                    var gauge3 = new RadialGauge({
+                        renderTo: 'windSpeed',
+                        title: "Wind Speed",
+                        width: 300,
+                        height: 300,
+                        units: "Km/h",
+                        minValue: 0,
+                        startAngle: 90,
+                        ticksAngle: 180,
+                        valueBox: false,
+                        maxValue: 220,
+                        majorTicks: [
+                            "0",
+                            "20",
+                            "40",
+                            "60",
+                            "80",
+                            "100",
+                            "120",
+                            "140",
+                            "160",
+                            "180",
+                            "200",
+                            "220"
+                        ],
+                        minorTicks: 2,
+                        strokeTicks: true,
+                        highlights: [
+
+                            {"from": 0, "to": 50, "color": "rgba(0,255,0,.15)"},
+                            {"from": 50, "to": 100, "color": "rgba(255,255,0,.15)"},
+                            {"from": 100, "to": 150, "color": "rgba(255,30,0,.25)"},
+                            {"from": 150, "to": 200, "color": "rgba(255,0,225,.25)"},
+                            {"from": 200, "to": 220, "color": "rgba(0,0,255,.25)"}
+
+                        ],
+                        colorPlate: "#fff",
+                        borderShadowWidth: 0,
+                        borders: false,
+                        needleType: "arrow",
+                        needleWidth: 2,
+                        needleCircleSize: 7,
+                        needleCircleOuter: true,
+                        needleCircleInner: false,
+                        animationDuration: 1500,
+                        animationRule: "linear",
+                        value: "{{$windSpeed}}"
+                    }).draw();
+
+                    var gauge4 = new RadialGauge({
+                        renderTo: 'windGust',
+                        title: "Wind Gust",
+                        width:300,
+
+                        height: 300,
+                        units: "Km/h",
+                        minValue: 0,
+                        startAngle: 90,
+                        ticksAngle: 180,
+                        valueBox: false,
+                        maxValue: 220,
+                        majorTicks: [
+                            "0",
+                            "20",
+                            "40",
+                            "60",
+                            "80",
+                            "100",
+                            "120",
+                            "140",
+                            "160",
+                            "180",
+                            "200",
+                            "220"
+                        ],
+                        minorTicks: 2,
+                        strokeTicks: true,
+                        highlights: [
+
+                            {"from": 0, "to": 50, "color": "rgba(0,255,0,.15)"},
+                            {"from": 50, "to": 100, "color": "rgba(255,255,0,.15)"},
+                            {"from": 100, "to": 150, "color": "rgba(255,30,0,.25)"},
+                            {"from": 150, "to": 200, "color": "rgba(255,0,225,.25)"},
+                            {"from": 200, "to": 220, "color": "rgba(0,0,255,.25)"}
+
+                        ],
+                        colorPlate: "#fff",
+                        borderShadowWidth: 0,
+                        borders: false,
+                        needleType: "arrow",
+                        needleWidth: 2,
+                        needleCircleSize: 7,
+                        needleCircleOuter: true,
+                        needleCircleInner: false,
+                        animationDuration: 1500,
+                        animationRule: "linear",
+                        value: "{{$windGust}}"
+                    }).draw();
+
+
+                    var gauge5 = new RadialGauge({
+
+                        renderTo: 'humidity',
+                        value: "{{$humidity}}",
+                        units: "Relative humidity[%]",
+                        height: 300,
+                    }).draw();
+
+                    var gauge6 = new RadialGauge({
+
+                        renderTo: 'airPressure',
+                        value: "{{$airPressure}}",
+                        units: "Barometer",
+                        height: 300,
+                        minValue: 950,
+                        maxValue: 1060,
+
+                        majorTicks: [
+                            "950",
+                            "960",
+                            "970",
+                            "980",
+                            "990",
+                            "1000",
+                            "1010",
+                            "1020",
+                            "1030",
+                            "1040",
+                            "1050",
+                            "1060"
+                        ],
                     }).draw();
 
 
