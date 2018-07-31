@@ -20,9 +20,14 @@
                     <P> <div id="pop-div"></div>
 
                     </p>
-                    <?= $lava->render('GeoChart', 'Popularity', 'pop-div') ?>
+
+
+
+
+                    <canvas id="gauge"></canvas>
 
                 </div><!-- /.blog-post -->
+
 
 
 

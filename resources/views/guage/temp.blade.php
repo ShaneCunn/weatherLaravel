@@ -34,6 +34,18 @@
                     </p>
                     <?= Lava::render('GaugeChart', 'speed', 'speed-div') ?>
 
+                    <P> <div id="gust-div"></div>
+
+                    </p>
+                    <?= Lava::render('GaugeChart', 'Gust', 'gust-div') ?>
+
+                    <P> <div id="Humidty-div"></div>
+
+                    </p>
+                    <?= Lava::render('GaugeChart', 'Humidty', 'Humidty-div') ?>
+
+                    {!! $chart->render() !!}
+
                 </div><!-- /.blog-post -->
 
 

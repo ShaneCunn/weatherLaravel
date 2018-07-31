@@ -5,6 +5,7 @@ namespace Weather\Http\Controllers;
 use Illuminate\Http\Request;
 use Khill\Lavacharts\Lavacharts;
 use Weather\CountryUser;
+use Charts;
 
 class ChartController extends Controller
 {
@@ -66,8 +67,6 @@ class ChartController extends Controller
         $temps = \Lava::DataTable();
 
 
-        $airSpeed = \Lava::DataTable();
-
         $temps->addStringColumn('Type')
             ->addNumberColumn('Value')
             ->addRow(['Temperature', $csv[2]]);
@@ -98,14 +97,12 @@ class ChartController extends Controller
 
         $airGuage = \Lava::GaugeChart('Air', $airPressure, [
             'width' => 400,
-            'max' => 1050,
+            'max' => 1060,
             'min' => 950,
-
-
             'minorTicks' => 20,
             'majorTicks' => [
                 '950',
-                '1050'
+                '1060'
             ]
         ]);
 
@@ -128,7 +125,51 @@ class ChartController extends Controller
             'yellowTo' => 61,
             'redFrom' => 62,
             'redTo' => 200,
-            'minorTicks' => 5,
+            'minorTicks' => 10,
+            'majorTicks' => [
+                '0',
+                '100'
+            ]
+        ]);
+
+        $airGust = \Lava::DataTable();
+
+
+        $airGust->addStringColumn('Type')
+            ->addNumberColumn('Value')
+            ->addRow(['Gusts', round(($csv[5] * 3.6), 2)]);
+
+
+        $airGust = \Lava::GaugeChart('Gust', $airGust, [
+            'width' => 400,
+            'max' => 100,
+            'min' => 0,
+            'greenFrom' => 25,
+            'greenTo' => 51,
+            'yellowFrom' => 52,
+            'yellowTo' => 61,
+            'redFrom' => 62,
+            'redTo' => 200,
+            'minorTicks' => 10,
+            'majorTicks' => [
+                '0',
+                '100'
+            ]
+        ]);
+
+        $humidty = \Lava::DataTable();
+
+
+        $humidty->addStringColumn('Type')
+            ->addNumberColumn('Value')
+            ->addRow(['Humidty', round($csv[6], 1)]);
+
+
+        $humidty = \Lava::GaugeChart('Humidty', $humidty, [
+            'width' => 400,
+            'max' => 100,
+            'min' => 0,
+            'minorTicks' => 10,
             'majorTicks' => [
                 '0',
                 '100'
@@ -138,8 +179,54 @@ class ChartController extends Controller
         $title = 'Temp gauge';
 
 
-        return view('guage.temp', ['title' => $title], compact('gaugechart', 'airGuage', 'airSpeed'));
+        $chart = Charts::create('line', 'highcharts')
+            ->setTitle('My nice chart')
+            ->setLabels(['First', 'Second', 'Third'])
+            ->setValues([5, 10, 20])
+            ->setDimensions(1000, 500)
+            ->setResponsive(false);
 
 
+        return view('guage.temp', ['title' => $title], compact('gaugechart', 'airGuage',
+            'airSpeed', 'airGust', 'chart'));
+
+
+    }
+
+    public function getCompass()
+    {
+
+
+        $chart = Charts::create('line', 'highcharts')
+            ->setTitle('My nice chart')
+            ->setLabels(['First', 'Second', 'Third'])
+            ->setValues([5, 10, 20])
+            ->setDimensions(1000, 500)
+            ->setResponsive(false);
+
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', 'http://weather.nuigalway.ie/getLiveData.php');
+        //  echo $res->getStatusCode();
+
+        //   echo $res->getHeaderLine('content-type');
+// 'application/json; charset=utf8'
+        //  echo $res->getBody();
+        $csv = str_getcsv($res->getBody(), ",");
+        //  $test = json_decode($res->getBody());
+
+
+        /*        echo('wind degree: ' . $csv[1]);
+                echo('<br>current temp: : ' . $csv[2]);
+                echo('<br>current air pressure: : ' . $csv[3]);
+                echo('<br>current wind speed? : ' . $csv[4]);
+                echo('<br>current humidty : ' . $csv[6]);
+                echo('<br>current temp: : ' . $csv[2]);
+                echo('<br>today sunrise: : ' . $csv[29]);
+                echo('<br>today sunset: : ' . $csv[30]);*/
+
+
+        $degree = $csv[1];
+        $title = 'Compass gauge';
+        return view('guage.compass', ['title' => $title, 'degree' => $degree]);
     }
 }

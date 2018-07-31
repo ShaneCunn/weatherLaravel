@@ -166,6 +166,8 @@ return [
 
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
 
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+
 
     ],
 
@@ -221,7 +223,7 @@ return [
 
         'Lava' => 'Khill\Lavacharts\Laravel\LavachartsFacade',
 
-
+        'Charts' => ConsoleTVs\Charts\Charts::class,
     ],
 
 ];

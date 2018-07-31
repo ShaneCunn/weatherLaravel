@@ -50,6 +50,7 @@ Route::get('ip',function(){
     dd($data);
 });
 
-Route::get('gauge', 'ChartController@getGauge');
+Route::get('gauge', 'ChartController@getTemp');
 
-Route::get('temp', 'ChartController@getTemp');
+Route::get('temp', 'ChartController@getGauge');
+Route::get('compass', 'ChartController@getCompass');

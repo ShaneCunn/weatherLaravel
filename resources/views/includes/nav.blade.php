@@ -7,7 +7,7 @@
             @endauth
         @endif
         <a class="p-2 text-muted" href="/weather">Weather</a>
-        <a class="p-2 text-muted" href="#">Ireland</a>
+        <a class="p-2 text-muted" href="/gauge">Gauge</a>
         <a class="p-2 text-muted" href="#">Ireland</a>
         <a class="p-2 text-muted" href="#">Ireland</a>
         <a class="p-2 text-muted" href="#">Ireland</a>
